@@ -2,6 +2,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'pry'
 require './lib/nytimes'
+require 'awesome_print'
 
 class NytimesTest < Minitest::Test
   attr_reader :hash
@@ -11,7 +12,9 @@ class NytimesTest < Minitest::Test
   end
 
   def test_it_can_get_copyright
-    #Set your code to the local variable, "result"
+    #Set your code to the local variable, "result
+
+    result = @hash[:copyright]
 
     assert result, "Copyright (c) 2018 The New York Times Company. All Rights Reserved."
   end
@@ -19,12 +22,20 @@ class NytimesTest < Minitest::Test
   def test_it_can_get_array_of_stories
     #Set your code to the local variable, "result"
 
+    result = @hash[:results]
+
     assert result.is_a? (Array)
     assert_equal 44, result.count
   end
 
   def test_it_can_get_all_stories_with_subsection_of_politics
     #Set your code to the local variable, "result"
+
+    stories = @hash[:results]
+
+    result = stories.find_all do |story|
+      story[:subsection] == 'Politics'
+    end
 
 
     assert result.is_a? (Array)
